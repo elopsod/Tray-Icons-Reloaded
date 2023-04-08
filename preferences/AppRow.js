@@ -6,7 +6,7 @@ var AppRow = GObject.registerClass(
 	{
 		GTypeName: "AppRow",
 		Template: Me.dir.get_child("preferences/AppRow.xml").get_uri(),
-		InternalChildren: ["icon", "label", "revealButton", "revealer", "hidden"],
+		InternalChildren: ["icon", "label", "revealButton", "revealer", "hidden", "alwaysOnTop"],
 	},
 	class AppRow extends Gtk.ListBoxRow {
 		_init(app, settings) {
@@ -24,6 +24,10 @@ var AppRow = GObject.registerClass(
 
 			this._hidden.set_active(app.hidden);
 			this._hidden.connect("state-set", () => {
+				this._updateApp();
+			});
+			this._alwaysOnTop.set_active(app.alwaysOnTop);
+			this._alwaysOnTop.connect("state-set", () => {
 				this._updateApp();
 			});
 		}
@@ -51,6 +55,7 @@ var AppRow = GObject.registerClass(
 			apps[index] = {
 				id: this.appId,
 				hidden: this._hidden.get_active(),
+				alwaysOnTop: this._alwaysOnTop.get_active(),
 			};
 
 			this._settings.set_string("applications", JSON.stringify(apps));

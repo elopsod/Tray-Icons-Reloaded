@@ -73,6 +73,18 @@
 														<property name="halign">end</property>
 													</object>
 												</child>
+												<child>
+													<object class="GtkLabel">
+														<property name="label" translatable="yes">Always on top</property>
+														<property name="halign">start</property>
+														<property name="hexpand">true</property>
+													</object>
+												</child>
+												<child>
+													<object class="GtkSwitch" id="alwaysOnTop">
+														<property name="halign">end</property>
+													</object>
+												</child>
 											</object>
 										</property>
 									</object>

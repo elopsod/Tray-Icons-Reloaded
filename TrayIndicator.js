@@ -53,6 +53,7 @@ var TrayIndicator = GObject.registerClass(
 			const isHidden = this._appManager.getAppSetting(icon, "hidden");
 			if (isHidden) return;
 
+			const isAlwaysOnTop = this._appManager.getAppSetting(icon, "alwaysOnTop");
 			const button = new St.Button({
 				child: icon,
 				button_mask:
@@ -95,7 +96,10 @@ var TrayIndicator = GObject.registerClass(
 
 			this._icons.push(icon);
 
-			if (this._overflow) {
+			function isEmpty(value){
+				return (value == null || value == '');
+			 }
+			if (this._overflow && ( isAlwaysOnTop == false || isEmpty(isAlwaysOnTop) )) {
 				this._menuItem.actor.add(button);
 			} else {
 				this._indicators.insert_child_at_index(button, 0);
@@ -112,7 +116,7 @@ var TrayIndicator = GObject.registerClass(
 				GLib.Source.remove(icon.timeout);
 				icon.timeout = null;
 			}
-			
+
 			const actor = icon.get_parent();
 			actor.remove_actor(icon);
 			actor.destroy();
