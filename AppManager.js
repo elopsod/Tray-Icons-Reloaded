@@ -107,7 +107,8 @@ var AppManager = GObject.registerClass(
 		_openApplication(trayApp, icon, event) {
 			const isFlatpak = trayApp.app_info.has_key("X-Flatpak");
 			const onBlacklist = Me.metadata["open-blacklist"].includes(icon.wm_class); // Caprine
-			if (this._isUsingQt(this._getPid(icon)) || isFlatpak || onBlacklist) {
+			log('icon.wm_class: ' + icon.wm_class)
+			if (this._isUsingQt(this._getPid(icon)) || isFlatpak || onBlacklist || icon.wm_class == "k8s_context_switcher") {
 				return icon.click(event);
 			}
 
