@@ -98,12 +98,15 @@ var TrayIndicator = GObject.registerClass(
 
 			function isEmpty(value){
 				return (value == null || value == '');
-			 }
-			if (this._overflow && ( isAlwaysOnTop == false || isEmpty(isAlwaysOnTop) )) {
-				this._menuItem.actor.add(button);
-			} else {
-				this._indicators.insert_child_at_index(button, 0);
 			}
+
+		  if (this._overflow && ( isAlwaysOnTop == false || isEmpty(isAlwaysOnTop) )) {
+				this._menuItem.actor.add_child(button); //this._menuItem.actor.add(button);
+		  } else {
+				//this._indicators.insert_child_at_index(button, 0);
+				this._indicators.insert_child_below(button, this._indicators.get_next_sibling());
+				this._indicators.queue_relayout();
+		  }
 
 			this.checkOverflow();
 		}
@@ -124,6 +127,7 @@ var TrayIndicator = GObject.registerClass(
 			if (!ignoreCheckOverflow) {
 				this.checkOverflow();
 			}
+                        this._indicators.queue_relayout();
 		}
 
 		checkOverflow() {

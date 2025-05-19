@@ -58,6 +58,7 @@ var AppRow = GObject.registerClass(
 				alwaysOnTop: this._alwaysOnTop.get_active(),
 			};
 
+			log("applications: " + JSON.stringify(apps))
 			this._settings.set_string("applications", JSON.stringify(apps));
 		}
 	}

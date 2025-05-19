@@ -149,6 +149,8 @@ var AppManager = GObject.registerClass(
 		_getWmClass(wmclass) {
 			wmclass = wmclass.replace(/[0-9]/g, ""); // skype discord
 			wmclass = wmclass.replace("Desktop", ""); // telegram
+			log('!!!!!!!!!!!!!!!!!!!!!!!!!!wmclass: ' + wmclass)
+			console.warn('!!!!!!!!!!!!!!!!!!!!!!!!!!wmclass: ' + wmclass)
 			return wmclass;
 		}
 
