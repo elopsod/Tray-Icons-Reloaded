@@ -107,8 +107,9 @@ var AppManager = GObject.registerClass(
 		_openApplication(trayApp, icon, event) {
 			const isFlatpak = trayApp.app_info.has_key("X-Flatpak");
 			const onBlacklist = Me.metadata["open-blacklist"].includes(icon.wm_class); // Caprine
-			log('icon.wm_class: ' + icon.wm_class)
-			if (this._isUsingQt(this._getPid(icon)) || isFlatpak || onBlacklist || icon.wm_class == "k8s_context_switcher") {
+			log('AppManager._openApplication.open-blacklist: ' + JSON.stringify(Me.metadata["open-blacklist"]));
+			log('AppManager._openApplication.wm_class: ' + icon.wm_class)
+			if (this._isUsingQt(this._getPid(icon)) || isFlatpak || onBlacklist) {
 				return icon.click(event);
 			}
 
@@ -149,8 +150,7 @@ var AppManager = GObject.registerClass(
 		_getWmClass(wmclass) {
 			wmclass = wmclass.replace(/[0-9]/g, ""); // skype discord
 			wmclass = wmclass.replace("Desktop", ""); // telegram
-			log('!!!!!!!!!!!!!!!!!!!!!!!!!!wmclass: ' + wmclass)
-			console.warn('!!!!!!!!!!!!!!!!!!!!!!!!!!wmclass: ' + wmclass)
+			log('AppManager._getWmClass.wmclass: ' + wmclass)
 			return wmclass;
 		}
 
