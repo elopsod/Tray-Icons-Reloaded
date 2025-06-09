@@ -87,14 +87,6 @@ var TrayIndicator = GObject.registerClass(
 		    }
 		    this._queue_relayout();
 			});
-      // icon.connect("destroy", () => {
-      //   try {
-      //       button.destroy();
-      //   } catch (e) {
-      //       log('button.destroy(): ' + e)
-			// 			this._queue_relayout();
-      //   }
-      // });
 
       button.connect("button-release-event", (actor, event) => {
         this.menu.close();
